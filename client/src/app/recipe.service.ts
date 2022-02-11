@@ -18,13 +18,13 @@ export class RecipeService {
     //.toArray cannot work since recipes is not a table
     const headers = new HttpHeaders()
     .set('Accept', 'application/json')
-    return lastValueFrom(this.http.get<RecipeSummary[]>(`http://localhost:8080/api/recipes`))
+    return lastValueFrom(this.http.get<RecipeSummary[]>(`/api/recipes`))
   }
 
   getRecipe(recipeId: string): Promise<Recipe> {
     const headers = new HttpHeaders()
       .set('Accept', 'application/json')
-    return lastValueFrom(this.http.get<Recipe>(`http://localhost:8080/api/recipe/${recipeId}`))
+    return lastValueFrom(this.http.get<Recipe>(`/api/recipe/${recipeId}`))
   }
 
   postRecipe(r: Recipe): Promise<any> {
@@ -34,7 +34,7 @@ export class RecipeService {
       .set('Accept', 'application/json')
 
       return lastValueFrom(
-        this.http.post(`http://localhost:8080/api/recipe`, JSON.stringify(r))
+        this.http.post(`/api/recipe`, JSON.stringify(r))
       )
 
   }
