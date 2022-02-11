@@ -1,1 +1,69 @@
-<p>recipe-add works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form [formGroup]="recipeForm">
+
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input
+              type="text"
+              id="title"
+              class="form-control"
+              formControlName="title">
+              <span
+              *ngIf="!recipeForm.get('title').valid && recipeForm.get('title').touched"
+              class="help-block">Please enter valid username</span>
+          </div>
+
+      <div formArrayName="ingredients">
+        <h4>Ingredients</h4>
+        <button class="btn btn-default"
+        type="button"
+        (click)="onAddIngredient()">Add Ingredient</button>
+        <div class="form-group"
+        *ngFor="let recipeControl of controls; let i = index">
+          <input type="text" class="form-control" [formControlName]="i">
+        </div>
+      </div>
+        <span
+          *ngIf="!recipeForm.valid && recipeForm.touched"
+          class="help-block">Please enter valid data</span>
+
+          <div class="form-group">
+            <label for="instruction">Instruction</label>
+            <input
+              type="text"
+              id="instruction"
+              class="form-control"
+              formControlName="instruction">
+              <span
+              *ngIf="!recipeForm.get('instruction').valid && recipeForm.get('instruction').touched"
+              class="help-block">Please enter valid email</span>
+          </div>
+
+          <div class="form-group">
+            <label for="image">image</label>
+            <input
+              type="text"
+              id="image"
+              class="form-control"
+              formControlName="image">
+              <span
+              *ngIf="!recipeForm.get('image').valid && recipeForm.get('image').touched"
+              class="help-block">Please enter valid url to retrieve image</span>
+          </div>
+
+
+
+
+          <!-- original button location -->
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+<button type="button" [routerLink]="['/']">Back</button>
+<button type="button" disabled>Add</button>

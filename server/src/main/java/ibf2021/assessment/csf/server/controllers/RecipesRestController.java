@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.MediaType;
 
 import ibf2021.assessment.csf.server.models.Recipe;
-import ibf2021.assessment.csf.server.models.methods;
 import ibf2021.assessment.csf.server.services.RecipeService;
 import jakarta.json.Json;
 import jakarta.json.JsonArray;
