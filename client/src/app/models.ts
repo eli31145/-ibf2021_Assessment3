@@ -1,5 +1,7 @@
-export interface Recipe {
+export interface RecipeSummary {
   id: string
-  name: string
-  //rest to be added 
+  title: string
+  //rest to be added
 }
+
+

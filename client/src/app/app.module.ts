@@ -6,10 +6,12 @@ import { RecipeListComponent } from './recipe-list/recipe-list.component';
 import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
 import { RecipeAddComponent } from './recipe-add/recipe-add.component';
 import { RouterModule, Routes } from '@angular/router';
+import { RecipeService } from './recipe.service';
+import { HttpClientModule } from '@angular/common/http';
 
 const appRoutes: Routes = [
   //confirm that no need '/' in front of recipe & add
-  {path:'/', component:RecipeListComponent},
+  {path:'', component:RecipeListComponent},
   {path:'recipe/:recipeId', component:RecipeDetailComponent},
   {path:'add', component: RecipeAddComponent},
   {path:'**', redirectTo:'/', pathMatch:'full'}
@@ -23,9 +25,9 @@ const appRoutes: Routes = [
     RecipeAddComponent,
   ],
   imports: [
-    BrowserModule, RouterModule.forRoot(appRoutes)
+    BrowserModule, RouterModule.forRoot(appRoutes), HttpClientModule
   ],
-  providers: [],
+  providers: [RecipeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
