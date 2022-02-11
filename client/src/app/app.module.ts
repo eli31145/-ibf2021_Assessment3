@@ -8,6 +8,7 @@ import { RecipeAddComponent } from './recipe-add/recipe-add.component';
 import { RouterModule, Routes } from '@angular/router';
 import { RecipeService } from './recipe.service';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
   //confirm that no need '/' in front of recipe & add
@@ -25,7 +26,8 @@ const appRoutes: Routes = [
     RecipeAddComponent,
   ],
   imports: [
-    BrowserModule, RouterModule.forRoot(appRoutes), HttpClientModule
+    BrowserModule, RouterModule.forRoot(appRoutes), HttpClientModule,
+    FormsModule, ReactiveFormsModule
   ],
   providers: [RecipeService],
   bootstrap: [AppComponent]

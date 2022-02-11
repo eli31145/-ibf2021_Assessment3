@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Recipe } from '../models';
+import { RecipeService } from '../recipe.service';
 
 @Component({
   selector: 'app-recipe-add',
@@ -10,14 +12,48 @@ import { ActivatedRoute } from '@angular/router';
 export class RecipeAddComponent implements OnInit {
 
   recipeForm!: FormGroup;
-  constructor(private activatedRoute: ActivatedRoute) { }
+
+  constructor(private activatedRoute: ActivatedRoute, private fb: FormBuilder,
+    private recipeSvc: RecipeService) { }
 
   ngOnInit(): void {
-
+    this.recipeForm = this.createForm()
   }
 
+  private createForm(): FormGroup {
+    return this.fb.group({
+      title: this.fb.control('', [Validators.required, Validators.minLength(3)]),
+      ingredients: this.fb.array([]),
+      //ingredients: this.fb.array([],[Validators.min(1), Validators.required, Validators.minLength(3)]),
+      instruction: this.fb.control('', [Validators.required, Validators.minLength(3)]),
+      image: this.fb.control('', Validators.required)
+    })
+  }
+
+
+
   onAddIngredient(){
-    const control = new FormControl(null, [Validators.required, Validators.minLength(3), Validators.min(1)])
-    (<FormArray>this.recipeForm.get('ingredients').push(control))
+    const control = new FormControl(null, [Validators.required, Validators.minLength(3), Validators.min(1)]);
+    (<FormArray>this.recipeForm.get('ingredients')).push(control);
+  }
+
+  get controls() {
+    return (this.recipeForm.get('ingredients') as FormArray).controls;
+  }
+
+
+  onSubmit(){
+    const r: Recipe = this.recipeForm.value as Recipe
+    console.log('>>>Recipe Added', r);
+    this.recipeSvc.postRecipe(r)
+      .then(result => {
+        this.recipeForm.reset();
+        console.info('>>> result', result)
+      })
+      .catch(error=>{
+        alert('An error occured')
+        console.error('>>>Error', error)
+      })
+
   }
 }

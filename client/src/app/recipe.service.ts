@@ -1,7 +1,10 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Recipe, RecipeSummary } from "./models";
 import { lastValueFrom } from "rxjs";
+
+
+
 
 @Injectable()
 export class RecipeService {
@@ -13,11 +16,27 @@ export class RecipeService {
 
   getAllRecipes(): Promise<RecipeSummary[]> {
     //.toArray cannot work since recipes is not a table
+    const headers = new HttpHeaders()
+    .set('Accept', 'application/json')
     return lastValueFrom(this.http.get<RecipeSummary[]>(`http://localhost:8080/api/recipes`))
   }
 
   getRecipe(recipeId: string): Promise<Recipe> {
+    const headers = new HttpHeaders()
+      .set('Accept', 'application/json')
     return lastValueFrom(this.http.get<Recipe>(`http://localhost:8080/api/recipe/${recipeId}`))
+  }
+
+  postRecipe(r: Recipe): Promise<any> {
+
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Accept', 'application/json')
+
+      return lastValueFrom(
+        this.http.post(`http://localhost:8080/api/recipe`, JSON.stringify(r))
+      )
+
   }
 
 }

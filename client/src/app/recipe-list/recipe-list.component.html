@@ -1,7 +1,6 @@
 <h2>List of Recipes</h2>
 
 <div *ngIf="recipes.length > 0">
-	<h2>List of Todos</h2>
 	<div *ngFor="let r of recipes" [routerLink]="['/recipe', r.id]" class="item">
     <p class="border"> {{ r.title }}</p>
 	</div>

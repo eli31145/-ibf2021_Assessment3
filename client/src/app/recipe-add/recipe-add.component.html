@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <form [formGroup]="recipeForm">
+      <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
 
           <div class="form-group">
             <label for="title">Title</label>
@@ -10,13 +10,13 @@
               id="title"
               class="form-control"
               formControlName="title">
-              <span
+<!--               <span
               *ngIf="!recipeForm.get('title').valid && recipeForm.get('title').touched"
-              class="help-block">Please enter valid username</span>
+              class="help-block">Please enter valid username</span> -->
           </div>
 
       <div formArrayName="ingredients">
-        <h4>Ingredients</h4>
+        <label for="ingredients">Ingredients</label>
         <button class="btn btn-default"
         type="button"
         (click)="onAddIngredient()">Add Ingredient</button>
@@ -36,25 +36,22 @@
               id="instruction"
               class="form-control"
               formControlName="instruction">
-              <span
+<!--               <span
               *ngIf="!recipeForm.get('instruction').valid && recipeForm.get('instruction').touched"
-              class="help-block">Please enter valid email</span>
+              class="help-block">Please enter valid email</span> -->
           </div>
 
           <div class="form-group">
-            <label for="image">image</label>
+            <label for="image">Image</label>
             <input
               type="text"
               id="image"
               class="form-control"
               formControlName="image">
-              <span
+<!--               <span
               *ngIf="!recipeForm.get('image').valid && recipeForm.get('image').touched"
-              class="help-block">Please enter valid url to retrieve image</span>
+              class="help-block">Please enter valid url to retrieve image</span> -->
           </div>
-
-
-
 
           <!-- original button location -->
       </form>
@@ -66,4 +63,4 @@
 
 
 <button type="button" [routerLink]="['/']">Back</button>
-<button type="button" disabled>Add</button>
+<button type="submit" [disabled]="recipeForm.invalid">Add</button>
