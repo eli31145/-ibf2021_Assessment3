@@ -17,13 +17,17 @@
 
       <div formArrayName="ingredients">
         <label for="ingredients">Ingredients</label>
-        <button class="btn btn-default"
-        type="button"
-        (click)="onAddIngredient()">Add Ingredient</button>
         <div class="form-group"
         *ngFor="let recipeControl of controls; let i = index">
           <input type="text" class="form-control" [formControlName]="i">
+          <button
+            *ngIf="i > 0" type="button"
+            (click)="deleteInput(i)"
+          >Delete</button>
         </div>
+        <button class="btn btn-default"
+        type="button"
+        (click)="onAddIngredient()">Add Ingredient</button>
       </div>
         <span
           *ngIf="!recipeForm.valid && recipeForm.touched"
@@ -53,14 +57,9 @@
               class="help-block">Please enter valid url to retrieve image</span> -->
           </div>
 
-          <!-- original button location -->
+          <button type="button" [routerLink]="['/']">Back</button>
+          <button type="submit" [disabled]="recipeForm.invalid">Add</button>
       </form>
-    </div>
+ <!--    </div>
   </div>
-</div>
-
-
-
-
-<button type="button" [routerLink]="['/']">Back</button>
-<button type="submit" [disabled]="recipeForm.invalid">Add</button>
+</div> -->

@@ -37,6 +37,10 @@ export class RecipeAddComponent implements OnInit {
     (<FormArray>this.recipeForm.get('ingredients')).push(control);
   }
 
+  deleteInput(i: number) {
+    (<FormArray>this.recipeForm.get('ingredients')).removeAt(i);
+  }
+
   get controls() {
     return (this.recipeForm.get('ingredients') as FormArray).controls;
   }
