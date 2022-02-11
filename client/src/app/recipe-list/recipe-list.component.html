@@ -1,0 +1,14 @@
+<h2>List of Recipes</h2>
+
+<div *ngIf="recipes.length > 0">
+	<h2>List of Todos</h2>
+	<div *ngFor="let r of recipes" [routerLink]="['/recipe', r.id]" class="item">
+		{{ r.name }}
+	</div>
+</div>
+
+<div *ngIf="recipes.length <= 0">
+	<h2>Recipes currently unavailable</h2>
+</div>
+
+<button type="button" (click)="toAdd()">Add</button>
