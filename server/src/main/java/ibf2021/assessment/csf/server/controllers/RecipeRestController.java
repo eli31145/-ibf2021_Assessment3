@@ -49,7 +49,7 @@ public class RecipeRestController{
         JsonObjectBuilder jOb = Json.createObjectBuilder()
             .add("title", r.getTitle())
             .add("image", r.getImage())
-            .add("ingredients", (r.getIngredients().toString()))
+            .add("ingredients", Json.createArrayBuilder(r.getIngredients()))
             .add("instruction", r.getInstruction());
             
             JsonObject jO = jOb.build();
