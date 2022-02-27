@@ -7,9 +7,10 @@
     </td>
 
     <td>
-      <div>
-        Ingredients: {{recipe?.ingredients}}
-      </div>
+      <div>Ingredients:</div>
+      <ol>
+        <li *ngFor="let i of recipe?.ingredients">{{i}}</li>
+      </ol>
       <div>
         Instructions: {{recipe?.instruction}}
       </div>

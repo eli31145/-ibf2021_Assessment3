@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Recipe } from '../models';
 import { RecipeService } from '../recipe.service';
 
@@ -14,7 +14,7 @@ export class RecipeAddComponent implements OnInit {
   recipeForm!: FormGroup;
 
   constructor(private activatedRoute: ActivatedRoute, private fb: FormBuilder,
-    private recipeSvc: RecipeService) { }
+    private recipeSvc: RecipeService, private router: Router) { }
 
   ngOnInit(): void {
     this.recipeForm = this.createForm()
@@ -23,8 +23,8 @@ export class RecipeAddComponent implements OnInit {
   private createForm(): FormGroup {
     return this.fb.group({
       title: this.fb.control('', [Validators.required, Validators.minLength(3)]),
-      ingredients: this.fb.array([]),
-      //ingredients: this.fb.array([],[Validators.min(1), Validators.required, Validators.minLength(3)]),
+      ingredients: this.fb.array([
+        new FormControl('', [Validators.required, Validators.minLength(3), Validators.min(1)])]),
       instruction: this.fb.control('', [Validators.required, Validators.minLength(3)]),
       image: this.fb.control('', Validators.required)
     })
@@ -33,7 +33,7 @@ export class RecipeAddComponent implements OnInit {
 
 
   onAddIngredient(){
-    const control = new FormControl(null, [Validators.required, Validators.minLength(3), Validators.min(1)]);
+    const control = new FormControl('', [Validators.required, Validators.minLength(3)]);
     (<FormArray>this.recipeForm.get('ingredients')).push(control);
   }
 
@@ -52,7 +52,9 @@ export class RecipeAddComponent implements OnInit {
     this.recipeSvc.postRecipe(r)
       .then(result => {
         this.recipeForm.reset();
-        console.info('>>> result', result)
+        console.info('>>> result', result);
+        alert('Recipe Saved');
+        this.router.navigate([''])
       })
       .catch(error=>{
         alert('An error occured')
